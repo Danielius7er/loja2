@@ -1,0 +1,94 @@
+---
+import { BRAND } from "../config/brand";
+---
+
+<div
+  id="cinematic-intro"
+  class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#0a0a0a] text-white"
+  aria-hidden="true"
+>
+  <div class="intro-vignette pointer-events-none absolute inset-0"></div>
+  <div class="intro-grain pointer-events-none absolute inset-0 opacity-30"></div>
+
+  <div class="relative z-10 px-6 text-center">
+    <p
+      class="intro-fade-up mb-4 text-[10px] font-medium uppercase tracking-[0.45em] text-white/55 md:text-xs"
+    >
+      {BRAND.name}
+    </p>
+    <h1
+      class="intro-fade-up intro-delay-1 font-[Manrope] text-4xl font-semibold tracking-[0.22em] md:text-6xl lg:text-7xl"
+    >
+      FIND STYLE
+    </h1>
+    <p class="intro-fade-up intro-delay-2 mt-5 text-sm tracking-[0.2em] text-white/50 md:text-base">
+      {BRAND.tagline}
+    </p>
+  </div>
+</div>
+
+<style>
+  .intro-vignette {
+    background: radial-gradient(ellipse 70% 60% at 50% 45%, transparent 0%, #0a0a0a 75%);
+  }
+
+  .intro-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  .intro-fade-up {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: intro-rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .intro-delay-1 {
+    animation-delay: 0.15s;
+  }
+
+  .intro-delay-2 {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes intro-rise {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  #cinematic-intro.intro-exit {
+    opacity: 0;
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  const INTRO_VISIBLE_MS = 3000;
+  const INTRO_FADE_MS = 900;
+
+  function runIntro() {
+    const el = document.getElementById("cinematic-intro");
+    if (!el || window.location.pathname !== "/") {
+      el?.remove();
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+
+    window.setTimeout(() => {
+      el.classList.add("intro-exit");
+      window.setTimeout(() => {
+        el.remove();
+        document.body.style.overflow = "";
+      }, INTRO_FADE_MS);
+    }, INTRO_VISIBLE_MS);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runIntro);
+  } else {
+    runIntro();
+  }
+</script>

@@ -1,0 +1,163 @@
+---
+import type { Product } from "../../types/product";
+import { getShowcaseData } from "../../lib/showcase";
+import { whatsappUrl } from "../../lib/format";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const data = getShowcaseData(product);
+const waMessage = `Olá! Quero encomendar: ${product.name} (${data.priceFormatted})`;
+const waLink = whatsappUrl(product.whatsapp, waMessage);
+const configJson = JSON.stringify(data).replace(/</g, "\\u003c");
+---
+
+<article
+  class="product-showcase mx-auto max-w-6xl scroll-mt-24 px-5 py-14 md:px-8 md:py-20"
+  data-product-showcase
+  aria-labelledby={`product-title-${product.id}`}
+>
+  <script type="application/json" data-showcase-config set:html={configJson} />
+
+  <div
+    class="grid gap-10 rounded-3xl border border-border bg-bg p-5 shadow-[0_24px_60px_rgba(0,0,0,0.05)] md:gap-14 md:p-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start"
+  >
+    <!-- Galeria -->
+    <div class="space-y-4">
+      <button
+        type="button"
+        class="gallery-main group relative flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-[#fafafa] text-left transition hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
+        data-gallery-main
+        aria-expanded="false"
+        aria-controls={`product-desc-panel-${product.id}`}
+      >
+        <div class="relative aspect-[4/5] w-full touch-pan-y" data-gallery-viewport>
+          <img
+            data-gallery-image
+            src={data.gallery[0]}
+            alt={product.name}
+            width="800"
+            height="1000"
+            class="h-full w-full object-contain p-6 transition duration-500 ease-out"
+          />
+          <p class="pointer-events-none absolute bottom-4 left-0 right-0 text-center text-[10px] uppercase tracking-[0.2em] text-muted opacity-0 transition group-hover:opacity-100">
+            Toque para ver descrição
+          </p>
+        </div>
+
+        <div
+          id={`product-desc-panel-${product.id}`}
+          class="max-h-0 overflow-hidden border-t border-transparent bg-bg transition-[max-height,padding,border-color] duration-500 ease-out"
+          data-desc-panel
+          hidden
+        >
+          <div class="px-6 py-5">
+            <p class="text-xs font-medium uppercase tracking-[0.2em] text-muted">Sobre este modelo</p>
+            <p class="mt-3 text-sm leading-relaxed text-text" data-desc-text>
+              {product.description}
+            </p>
+          </div>
+        </div>
+      </button>
+
+      <div
+        class="flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        data-thumbnail-track
+        role="tablist"
+        aria-label="Miniaturas do produto"
+      >
+        {
+          data.gallery.map((src, index) => (
+            <button
+              type="button"
+              role="tab"
+              class:list={[
+                "thumbnail-btn h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 bg-[#fafafa] p-2 transition duration-300",
+                index === 0 ? "border-text" : "border-transparent hover:border-border",
+              ]}
+              data-thumbnail
+              data-image={src}
+              aria-selected={index === 0}
+              aria-label={`Ver imagem ${index + 1}`}
+            >
+              <img src={src} alt="" class="h-full w-full object-contain" loading="lazy" />
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Informação -->
+    <div class="flex flex-col justify-center lg:py-4">
+      <p class="text-xs font-medium uppercase tracking-[0.35em] text-muted">Cavilson Ferreira</p>
+      <h2
+        id={`product-title-${product.id}`}
+        class="mt-3 font-[Manrope] text-3xl font-semibold tracking-tight md:text-4xl"
+        data-product-title
+      >
+        {product.name}
+      </h2>
+      <p class="mt-4 text-2xl font-medium tracking-tight md:text-3xl" data-product-price>
+        {data.priceFormatted}
+      </p>
+
+      <div class="mt-8">
+        <p class="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-muted">Cor</p>
+        <div class="flex flex-wrap gap-3" data-variant-list role="radiogroup" aria-label="Selecionar cor">
+          {
+            data.variants.map((variant, index) => (
+              <button
+                type="button"
+                role="radio"
+                class:list={[
+                  "variant-btn flex items-center gap-2 rounded-full border-2 px-3 py-2 transition duration-300",
+                  index === 0 ? "border-text bg-[#fafafa]" : "border-border hover:border-text/40",
+                ]}
+                data-variant
+                data-variant-id={variant.id}
+                data-image={variant.image}
+                data-label={variant.label}
+                aria-checked={index === 0}
+              >
+                <span
+                  class="h-5 w-5 shrink-0 rounded-full border border-border"
+                  style={`background-color: ${variant.color}`}
+                />
+                <img
+                  src={variant.image}
+                  alt=""
+                  class="h-8 w-8 rounded-md object-contain"
+                  loading="lazy"
+                />
+                <span class="text-xs font-medium uppercase tracking-wider">{variant.label}</span>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <p class="mt-8 text-sm leading-relaxed text-muted">
+        Design minimalista, acabamento premium e conforto para uso diário. Preço único em Kwanza.
+      </p>
+
+      {
+        product.inStock ? (
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-8 inline-flex items-center justify-center rounded-full bg-text px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-bg transition hover:opacity-90"
+          >
+            Encomendar no WhatsApp
+          </a>
+        ) : (
+          <span class="mt-8 inline-flex items-center justify-center rounded-full border border-border px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            Indisponível
+          </span>
+        )
+      }
+    </div>
+  </div>
+</article>

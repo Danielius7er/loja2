@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "name": "Óculos Castanho Tartaruga",
+    "price": 10700,
+    "image": "/images/produto-castanho.png",
+    "description": "Armação redonda em acetato tartaruga com lentes suaves. Leve, confortável e com presença discreta — ideal para elevar o visual do dia a dia com um toque vintage refinado.",
+    "whatsapp": "244900000000",
+    "inStock": true,
+    "gallery": [
+      "/images/produto-castanho.png",
+      "/images/produto-preto.png",
+      "/images/produto-vintage.png"
+    ],
+    "variants": [
+      {
+        "id": "castanho",
+        "label": "Castanho",
+        "color": "#6b4a2d",
+        "image": "/images/produto-castanho.png"
+      },
+      {
+        "id": "preto",
+        "label": "Preto",
+        "color": "#111111",
+        "image": "/images/produto-preto.png"
+      },
+      {
+        "id": "vintage",
+        "label": "Vintage",
+        "color": "#3d2f24",
+        "image": "/images/produto-vintage.png"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Óculos Preto Mate",
+    "price": 10700,
+    "image": "/images/produto-preto.png",
+    "description": "Silhueta redonda em preto mate com acabamento minimalista. Um clássico contemporâneo que combina com qualquer look — da cidade ao fim de semana, sempre com atitude suave.",
+    "whatsapp": "244900000000",
+    "inStock": true,
+    "gallery": ["/images/produto-preto.png", "/images/produto-castanho.png"],
+    "variants": [
+      {
+        "id": "preto",
+        "label": "Preto",
+        "color": "#111111",
+        "image": "/images/produto-preto.png"
+      },
+      {
+        "id": "castanho",
+        "label": "Castanho",
+        "color": "#6b4a2d",
+        "image": "/images/produto-castanho.png"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Óculos Vintage Turtle",
+    "price": 10700,
+    "image": "/images/produto-vintage.png",
+    "description": "Inspirado no estilo retro, com padrão turtle e lentes escuras. Personalidade atemporal para quem procura um óculos de assinatura com charme vintage e conforto premium.",
+    "whatsapp": "244900000000",
+    "inStock": true,
+    "gallery": ["/images/produto-vintage.png", "/images/produto-castanho.png"],
+    "variants": [
+      {
+        "id": "vintage",
+        "label": "Vintage",
+        "color": "#3d2f24",
+        "image": "/images/produto-vintage.png"
+      },
+      {
+        "id": "castanho",
+        "label": "Castanho",
+        "color": "#6b4a2d",
+        "image": "/images/produto-castanho.png"
+      }
+    ]
+  }
+]

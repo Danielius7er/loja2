@@ -1,0 +1,37 @@
+---
+import "../styles/global.css";
+import CinematicIntro from "../components/CinematicIntro.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+import { BRAND } from "../config/brand";
+
+const {
+  title = `${BRAND.name} — ${BRAND.tagline}`,
+  description = `Óculos suaves e minimalistas por ${BRAND.name}. Encomendas rápidas via WhatsApp.`,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/jpeg" href={BRAND.logo} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <CinematicIntro />
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,41 @@
+---
+import { BRAND } from "../config/brand";
+
+const year = new Date().getFullYear();
+---
+
+<footer id="contacto" class="mt-auto border-t border-border">
+  <div class="mx-auto max-w-6xl px-5 py-12 md:px-8">
+    <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+      <div class="flex items-start gap-4">
+        <img
+          src={BRAND.logo}
+          alt={BRAND.name}
+          width="56"
+          height="56"
+          class="h-14 w-14 rounded-2xl object-cover"
+        />
+        <div>
+          <p class="font-[Manrope] text-sm font-semibold tracking-[0.12em] uppercase">
+            {BRAND.name}
+          </p>
+          <p class="mt-2 max-w-sm text-sm text-muted">
+            {BRAND.tagline}. Encomendas via WhatsApp e apoio por e-mail.
+          </p>
+        </div>
+      </div>
+      <div class="text-sm">
+        <p class="text-xs font-medium uppercase tracking-wider text-muted">E-mail</p>
+        <a
+          href={`mailto:${BRAND.email}`}
+          class="mt-2 block font-medium transition hover:opacity-70"
+        >
+          {BRAND.email}
+        </a>
+      </div>
+    </div>
+    <p class="mt-10 border-t border-border pt-6 text-xs text-muted">
+      © {year} {BRAND.name}. Todos os direitos reservados.
+    </p>
+  </div>
+</footer>

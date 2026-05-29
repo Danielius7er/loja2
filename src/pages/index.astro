@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import ProductShowcase from "../components/product/ProductShowcase.astro";
+import Trust from "../components/Trust.astro";
+import FAQ from "../components/FAQ.astro";
+import Footer from "../components/Footer.astro";
+import { loadProducts } from "../lib/products-store";
+
+export const prerender = true;
+
+const products = await loadProducts();
+---
+
+<BaseLayout>
+  <Navbar />
+  <main>
+    <Hero />
+    <Trust />
+
+    <section id="produtos" class="border-t border-border bg-[#fcfcfc]">
+      <div class="mx-auto max-w-6xl px-5 pb-6 pt-16 md:px-8 md:pt-20">
+        <p class="text-xs font-medium uppercase tracking-[0.3em] text-muted">Coleção</p>
+        <h2 class="mt-2 font-[Manrope] text-2xl font-semibold md:text-3xl">Os nossos modelos</h2>
+        <p class="mt-3 max-w-xl text-sm text-muted">
+          Deslize nas imagens, escolha a cor e toque na foto para ler a descrição. Preço único:
+          <strong> 10.700 Kz</strong>.
+        </p>
+      </div>
+
+      {
+        products.length > 0 ? (
+          products.map((product) => <ProductShowcase product={product} />)
+        ) : (
+          <p class="mx-auto max-w-6xl px-5 py-12 text-center text-sm text-muted md:px-8">
+            Novos modelos em breve.
+          </p>
+        )
+      }
+    </section>
+
+    <FAQ />
+  </main>
+  <Footer />
+
+  <script>
+    import "../scripts/product-showcase.ts";
+  </script>
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+const items = [
+  {
+    q: "Como faço uma encomenda?",
+    a: "Escolha o modelo, toque em WhatsApp e envie a mensagem pré-preenchida. Confirmamos disponibilidade e entrega.",
+  },
+  {
+    q: "Quanto tempo demora a entrega?",
+    a: "O prazo é confirmado no WhatsApp após a encomenda, consoante a sua localização.",
+  },
+  {
+    q: "Posso reservar um modelo esgotado?",
+    a: "Sim. Contacte-nos pelo WhatsApp e avisamos quando voltar a estar disponível.",
+  },
+  {
+    q: "Qual é o preço dos óculos?",
+    a: "Todos os modelos custam 10.700 Kz. O valor é confirmado no WhatsApp antes da entrega.",
+  },
+  {
+    q: "Como posso falar convosco por e-mail?",
+    a: "Envie mensagem para contactocavilsonferreira@gmail.com. Respondemos o mais rápido possível.",
+  },
+];
+---
+
+<section id="faq" class="mx-auto max-w-6xl px-5 py-20 md:px-8">
+  <h2 class="font-[Manrope] text-2xl font-semibold tracking-tight md:text-3xl">Perguntas frequentes</h2>
+  <div class="mt-10 divide-y divide-border border-t border-border">
+    {
+      items.map((item) => (
+        <details class="group py-5">
+          <summary class="cursor-pointer list-none text-sm font-medium transition group-open:text-text">
+            <span class="flex items-center justify-between gap-4">
+              {item.q}
+              <span class="text-muted transition group-open:rotate-45">+</span>
+            </span>
+          </summary>
+          <p class="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{item.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>

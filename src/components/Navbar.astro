@@ -1,0 +1,46 @@
+---
+import { BRAND } from "../config/brand";
+
+const links = [
+  { href: "#produtos", label: "Produtos" },
+  { href: "#faq", label: "Perguntas" },
+  { href: "#contacto", label: "Contacto" },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-border bg-bg/90 backdrop-blur-md">
+  <nav
+    class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8"
+    aria-label="Principal"
+  >
+    <a href="/" class="flex items-center gap-3">
+      <img
+        src={BRAND.logo}
+        alt={BRAND.name}
+        width="40"
+        height="40"
+        class="h-10 w-10 rounded-full object-cover"
+      />
+      <span class="hidden font-[Manrope] text-xs font-semibold uppercase tracking-[0.15em] sm:inline">
+        {BRAND.name}
+      </span>
+    </a>
+    <ul class="hidden items-center gap-8 text-sm text-muted md:flex">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} class="transition-colors hover:text-text">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a
+      href="#produtos"
+      class="rounded-full border border-text bg-text px-5 py-2 text-xs font-medium uppercase tracking-wider text-bg transition hover:bg-transparent hover:text-text"
+    >
+      Comprar
+    </a>
+  </nav>
+</header>
